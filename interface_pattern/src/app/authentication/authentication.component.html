@@ -1,0 +1,62 @@
+<div class="container">
+    
+    <form [formGroup]="form">
+        <h1 class="login">Вход</h1>
+        <div class="form-field">
+            <tui-input formControlName="email">
+                Введите почту
+                <input
+                    tuiTextfield
+                    type="email"
+                    placeholder="Почта"
+                />
+            </tui-input>
+            <div *ngIf = "fc.email.touched && fc.email.invalid">
+                <div *ngIf = "fc.email.errors?.required">Нужно ввести почту...</div>
+                <div *ngIf = "fc.email.errors?.minlength">Почта должна содержать минимум 5 символов</div>
+            </div>
+        </div>
+        <div class="form-field">
+            <tui-input-password
+                formControlName="password"
+                class="tui-space_top-2"
+            >
+                Введите пароль
+                <input
+                    tuiTextfield
+                    placeholder="Пароль"
+                />
+            </tui-input-password>
+    
+            <div *ngIf = "fc.password.touched && fc.password.invalid">
+                <div *ngIf = "fc.password.errors?.required">Нужно ввести пароль...</div>
+                <div *ngIf = "fc.password.errors?.minlength">Пароль должен содержать не менее 4-ex символов</div>
+            </div>
+        </div>
+
+        <div class="form-field">
+            <tui-input formControlName="role">
+                Введите роль
+                <input
+                    tuiTextfield
+                    placeholder="Роль"
+                />
+            </tui-input>
+            <div *ngIf = "fc.role.touched && fc.role.invalid">
+                <div *ngIf = "fc.role.errors?.required">Нужно ввести роль...</div>
+            </div>
+        </div>
+
+        <button
+            tuiButton
+            type="submit"
+            class="tui-space_right-3 tui-space_bottom-3 btn"
+            [disabled]="form.invalid"
+            (click)="login()"
+        >
+            Войти
+        </button>
+    </form>
+</div>
+
+
