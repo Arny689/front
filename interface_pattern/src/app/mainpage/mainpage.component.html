@@ -136,6 +136,30 @@
                             class="download"
                             (click)="downloadData(item.id)"
                         ></button>
+                        <button
+                            *ngIf="item.status == 'CREATED' && ls.getItem('role') == 'INSPECTOR'"
+                            tuiIconButton
+                            appearance="flat"
+                            size="s"
+                            icon="tuiIconCheck"
+                            title="Download"
+                            shape="rounded"
+                            type="button"
+                            class="download"
+                            (click)="approve(item.id)"
+                        ></button>
+                        <button
+                            *ngIf="item.status == 'CREATED' && ls.getItem('role') == 'INSPECTOR'"
+                            tuiIconButton
+                            appearance="flat"
+                            size="s"
+                            icon="tuiIconClose"
+                            title="Download"
+                            shape="rounded"
+                            type="button"
+                            class="download"
+                            (click)="reject(item.id)"
+                        ></button>
                         <!-- <form>
                             <input type="checkbox" name="data">
                         </form> -->
@@ -147,11 +171,12 @@
         
         <div class="btn-container">
             <button
-            tuiButton
-            type="button"
-            appearance="primary"
-            class="tui-space_right-3 tui-space_bottom-3 btn"
-            (click)="addReport()"
+                *ngIf="ls.getItem('role') == 'SCIENTIST'"
+                tuiButton
+                type="button"
+                appearance="primary"
+                class="tui-space_right-3 tui-space_bottom-3 btn"
+                (click)="addReport()"
             >
             Загрузить отчет
             </button>

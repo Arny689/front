@@ -1,6 +1,6 @@
 import { NgDompurifySanitizer } from "@tinkoff/ng-dompurify";
 import { TuiRootModule, TuiDialogModule, TuiAlertModule, TUI_SANITIZER, TuiSvgModule, TuiButtonModule, TuiDataListModule, TuiHostedDropdownModule } from "@taiga-ui/core";
-import { TuiTextAreaModule, TuiInputPasswordModule, TuiInputModule, TuiTagModule, TuiArrowModule, TuiCheckboxModule, TuiInputFilesModule } from '@taiga-ui/kit';
+import { TuiTextAreaModule, TuiInputPasswordModule, TuiInputModule, TuiTagModule, TuiArrowModule, TuiCheckboxModule, TuiInputFilesModule, TuiDataListWrapperModule, TuiSelectModule } from '@taiga-ui/kit';
 import { TuiTableModule } from '@taiga-ui/addon-table';
 import { TuiLetModule } from '@taiga-ui/cdk';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -62,7 +62,7 @@ import {MatDialogModule} from '@angular/material/dialog';
       TuiInputFilesModule,
       NgxPaginationModule,
       MatTabsModule,
-      MatDialogModule
+      MatDialogModule,TuiDataListWrapperModule, TuiSelectModule
 ],
   providers: [
     { provide: TUI_SANITIZER, useClass: NgDompurifySanitizer },

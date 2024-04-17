@@ -32,6 +32,8 @@ export class MainpageComponent implements OnInit {
   p: number = 1
 
   currentId: number = 0
+
+  ls = localStorage
   
   testValue = new FormGroup({
     testValue1: new FormControl({value: false, disabled: false})
@@ -104,7 +106,7 @@ export class MainpageComponent implements OnInit {
 
   downloadData(id: number) {
     // this.userService.getIndex(`http://localhost:8080/${this.currentId}/reports/${id}/download`, {id})
-    window.open(`http://localhost:8080/${this.currentId}/reports/${id}/download`)
+    window.open(`http://localhost:8080/${this.ls.getItem('id')}/reports/${id}/download`)
   }
 
   getIdFromAuthComponent() {
@@ -123,5 +125,17 @@ export class MainpageComponent implements OnInit {
       location.reload();
     });
   } 
+
+  approve(id: number) {
+    this.userService.approve(String(this.ls.getItem('id')), String(id)).subscribe(_ =>
+      location.reload()
+    )
+  }
+
+  reject(id: number) {
+    this.userService.reject(String(this.ls.getItem('id')), String(id), "reject message").subscribe(_ =>
+      location.reload()
+    )
+  }
 
 }

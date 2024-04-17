@@ -32,6 +32,14 @@ export class DataService {
     return this.http.delete(`http://localhost:3000/post/${id}`)
   }
 
+  approve(userId: string, reportId :string) {
+    return this.http.put(`http://localhost:8080/${userId}/reports/${reportId}/approve`, {})
+  }
+
+  reject(userId: string, reportId :string, msg: string) {
+    return this.http.put(`http://localhost:8080/${userId}/reports/${reportId}/reject`, {message: msg})
+  }
+
   getIndex(url: string, formData: DocDto) { 
     return this.downloadIndex(url, formData)
       .subscribe((response) => {

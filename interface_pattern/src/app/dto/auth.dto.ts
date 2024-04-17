@@ -7,6 +7,7 @@ export interface LoginRequestDto {
     readonly login: string
 }
 
-// export interface LoginDto {
-//     readonly id: number
-// }
+export interface LoginDto {
+    readonly id: number
+    readonly userRole: string
+}

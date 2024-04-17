@@ -14,6 +14,7 @@ export class AuthenticationComponent {
 
   signupForm: any;
   loginForm: any;
+  roles;
 
   constructor(
     private fb: FormBuilder,
@@ -44,6 +45,8 @@ export class AuthenticationComponent {
         Validators.minLength(5)
       ])
     })
+
+    this.roles = ['INSPECTOR', 'SCIENTIST']
   }
 
   get lfc() {
@@ -61,7 +64,11 @@ export class AuthenticationComponent {
       login: value.email,
       userRole: value.role
     }
-    await this.authService.signup(body).subscribe();
+    await this.authService.signup(body).subscribe(resp => {
+      localStorage.setItem('id', String(resp.id));
+      localStorage.setItem('role', String(resp.userRole));
+      this.routes.navigateByUrl('main')
+    })
   }
 
   async login() {
@@ -70,14 +77,15 @@ export class AuthenticationComponent {
     const body = {
       login: value.email
     }
-    await this.authService.login(body).subscribe(id => {
-      this.sendIdToMainComponent(id)
+    await this.authService.login(body).subscribe(resp => {
+      localStorage.setItem('id', String(resp.id));
+      localStorage.setItem('role', String(resp.userRole));
       this.routes.navigateByUrl('main')
     })
   }
 
-  sendIdToMainComponent(id: number) {
-    localStorage.setItem('id', String(id));
-    this.transferService.sendData(id);
-  }
+  // sendIdToMainComponent(id: number) {
+  //   localStorage.setItem('id', String(id));
+  //   this.transferService.sendData(id);
+  // }
 }
