@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { PostsDto } from '../dto/posts.dto';
 import { UsersDto } from '../dto/users.dto';
 import { TransferService } from '../services/transfer.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-mainpage',
@@ -18,7 +20,8 @@ export class MainpageComponent implements OnInit {
   constructor(
     private userService: DataService,
     private transferService: TransferService,
-    private routes: Router) {}
+    private routes: Router,
+    private dialog: MatDialog) {}
 
   user: UsersDto[] = []
 
@@ -43,35 +46,39 @@ export class MainpageComponent implements OnInit {
   }
 
   private showPosts(): void {
-    this.userService.getPosts(String(this.currentId))
-    .pipe(map(response => {
-      if(response) {
-        return Object.values(response)
-      }
-      return []
-    })).subscribe({
-      next: _ => 
-      { 
-        this.post = _
-        console.log(this.post);
+    this.userService.getPosts(String(this.currentId)).subscribe(_ => {console.log(_); this.post = _})
+    // .pipe(map(response => {
+    //   if(response) {
+    //     return Object.values(response)
+    //   }
+    //   return []
+    // }))
+    // .subscribe({
+    //   next: _ => 
+    //   { 
+    //     this.post.push(_)
+    //     console.log(this.post);
         
-      }
-    })
+    //   }
+    // })
   }
 
   remove(item: PostsDto): void {
     this.post = this.post.filter(post => post !== item);
   }
+
   delete(id: string, item: PostsDto): void {
     this.remove(item)
     this.userService.removePost(id).subscribe()
   }
 
   ngOnInit(): void {
+    this.currentId = Number(localStorage.getItem('id'))
+    // this.getIdFromAuthComponent()
     this.showPosts()
   }
 
-  readonly columns = ['id', 'title', 'filePath', 'status', 'updatedAt', 'id', 'login', 'actions']
+  readonly columns = ['title', 'filePath', 'status', 'updatedAt', 'login', 'actions']
 
   searchText: string = ''
 
@@ -96,13 +103,25 @@ export class MainpageComponent implements OnInit {
   }
 
   downloadData(id: number) {
-    this.userService.getIndex('http://localhost:8080/download',{id})
+    // this.userService.getIndex(`http://localhost:8080/${this.currentId}/reports/${id}/download`, {id})
+    window.open(`http://localhost:8080/${this.currentId}/reports/${id}/download`)
   }
 
   getIdFromAuthComponent() {
     this.transferService.getData().subscribe(data => {
       this.currentId = data
+      this.showPosts()
     });
   }
+
+  addReport() {
+    let dialogRef = this.dialog.open(DialogComponent, {
+      width:"80%",
+      height:"80%",
+    });
+    dialogRef.afterClosed().subscribe(_ => {
+      location.reload();
+    });
+  } 
 
 }

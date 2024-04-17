@@ -23,8 +23,8 @@ export class DataService {
     return data
   }
 
-  getPosts(id: string): Observable<PostsDto> {
-    const data = this.http.get<PostsDto>(`http://localhost:8080/${id}/reports`)
+  getPosts(id: string): Observable<PostsDto[]> {
+    const data = this.http.get<PostsDto[]>(`http://localhost:8080/${id}/reports`)
     return data
   }
 
@@ -38,16 +38,16 @@ export class DataService {
 
         console.log(response);
 
-        let file = new Blob([response.body], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"});
-        let newVariable: any = window.navigator;
+        // let file = new Blob([response.body], { type: response.body.type});
+        // let newVariable: any = window.navigator;
 
-        if (newVariable && newVariable.msSaveOrOpenBlob) {
-          const name = "test";
-          newVariable.msSaveOrOpenBlob(file, name);
-        } else {
-          const fileUrl = URL.createObjectURL(file);
-          const child = window.open(fileUrl);
-        }
+        // if (newVariable && newVariable.msSaveOrOpenBlob) {
+        //   const name = "test";
+        //   newVariable.msSaveOrOpenBlob(file, name);
+        // } else {
+        //   const fileUrl = URL.createObjectURL(file);
+        //   const child = window.open(fileUrl);
+        // }
       });
   }
 
@@ -56,10 +56,14 @@ export class DataService {
         observe: "response",
         responseType: "blob",           
         headers: new HttpHeaders({
-          "Accept": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          "Accept": "application/octet-stream"
         })
     };
     const request = new Request(requestOptions);
-    return this.http.post(url, formData, requestOptions);
+    return this.http.get(url, requestOptions);
+  }
+
+  uploadForm(url: string, formData: any) {
+    return this.http.post(url, formData);
   }
 }

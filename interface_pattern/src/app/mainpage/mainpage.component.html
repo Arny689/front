@@ -1,45 +1,22 @@
 <div id="container">
     <div id="menu-container">
-        <h2>Основная таблица</h2>
-        <p>Здесь отображается весь список отчетов”</p>
-
-        <div class="btn-container">
-            <button
-            tuiButton
-            type="button"
-            appearance="primary"
-            class="tui-space_right-3 tui-space_bottom-3 btn"
-            >
-            Для красоты
-            </button>
-                
-            <button
-            tuiButton
-            type="button"
-            appearance="primary"
-            class="tui-space_right-3 tui-space_bottom-3 btn"
-            (click)="exportUsers()"
-            >
-            Выгрузить список
-            </button>
-        </div>
-        
+        <h2>Список отчетов</h2>
             <table
-            tuiTable
-            [columns]="columns"
-            class="table-container "
-            #tableOfInfo
-            id="table"
+                tuiTable
+                [columns]="columns"
+                class="table-container "
+                #tableOfInfo
+                id="table"
             >
             <thead>
                 <tr tuiThGroup>
-                    <th
+                    <!-- <th
                         *tuiHead="'id'"
                         tuiTh
                         (click)="sortData()"
                     >
                         Id
-                    </th>
+                    </th> -->
                     <th
                         *tuiHead="'title'"
                         tuiTh
@@ -52,7 +29,7 @@
                         tuiTh
                         (click)="sortData()"
                     >
-                        Путь
+                        Файл
                     </th>
                     <th
                         *tuiHead="'status'"
@@ -71,28 +48,20 @@
                         Дата
                     </th>
                     <th
-                        *tuiHead="'id'"
-                        tuiTh
-                        [sorter]="null"
-                        (click)="sortData()"
-                    >
-                        Индекс
-                    </th>
-                    <th
                         *tuiHead="'login'"
                         tuiTh
                         [sorter]="null"
                         (click)="sortData()"
                     >
-                        Логин
+                        Автор
                     </th>
                     <th
-                    *tuiHead="'actions'"
-                    tuiTh
-                    [sorter]="null"
-                    (click)="sortData()"
+                        *tuiHead="'actions'"
+                        tuiTh
+                        [sorter]="null"
+                        (click)="sortData()"
                     >
-                    Действия
+                        Действия
                     </th>
                 </tr>
             </thead>
@@ -105,12 +74,12 @@
                     *ngFor="let item of sortedPosts | search: searchText | paginate: {itemsPerPage: 5, currentPage: p}; let index = index"
                     tuiTr
                 >
-                    <td
+                    <!-- <td
                         *tuiCell="'id'"
                         tuiTd
                     >
                         {{ index + 1 }}. {{ item.id }}
-                    </td>
+                    </td> -->
                     <td
                         *tuiCell="'title'"
                         tuiTd
@@ -130,28 +99,22 @@
                         <div [class]="item.status">{{ item.status}}</div>
                     </td>
                     <td
-                    *tuiCell="'updatedAt'"
-                    tuiTd
-                >   
-                    <div [class]="item.updatedAt">{{ item.updatedAt}}</div>
+                        *tuiCell="'updatedAt'"
+                        tuiTd
+                    >   
+                        <div [class]="item.updatedAt">{{ item.updatedAt}}</div>
                     </td>
                     <td
-                    *tuiCell="'id'"
-                    tuiTd
-                >   
-                    <div [class]="item.scientist.id">{{ item.scientist.id}}</div>
-                    </td>
-                    <td
-                    *tuiCell="'login'"
-                    tuiTd
-                >   
-                    <div [class]="item.scientist.login">{{ item.scientist.login}}</div>
+                        *tuiCell="'login'"
+                        tuiTd
+                    >   
+                        <div [class]="item.scientist.login">{{ item.scientist.login}}</div>
                     </td>
                     <td
                         *tuiCell="'actions'"
                         tuiTd
                     >   
-                        <button
+                        <!-- <button
                             tuiIconButton
                             appearance="flat"
                             size="s"
@@ -161,7 +124,7 @@
                             type="button"
                             class="remove"
                             (click)="delete(item.id, item)"
-                        ></button>
+                        ></button> -->
                         <button
                             tuiIconButton
                             appearance="flat"
@@ -173,13 +136,36 @@
                             class="download"
                             (click)="downloadData(item.id)"
                         ></button>
-                        <form>
+                        <!-- <form>
                             <input type="checkbox" name="data">
-                        </form>
+                        </form> -->
                     </td>
                 </tr>
             </tbody>
             <pagination-controls (pageChange)="p = $event"></pagination-controls>
-        </table>    
+        </table>   
+        
+        <div class="btn-container">
+            <button
+            tuiButton
+            type="button"
+            appearance="primary"
+            class="tui-space_right-3 tui-space_bottom-3 btn"
+            (click)="addReport()"
+            >
+            Загрузить отчет
+            </button>
+                
+            <!-- <button
+            tuiButton
+            type="button"
+            appearance="primary"
+            class="tui-space_right-3 tui-space_bottom-3 btn"
+            (click)="exportUsers()"
+            >
+            Выгрузить список
+            </button> -->
+        </div>
+
     </div>
 </div>

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
-import { LoginRequestDto } from '../dto/login.dto';
 import { TransferService } from '../services/transfer.service';
 
 
@@ -13,7 +12,8 @@ import { TransferService } from '../services/transfer.service';
 })
 export class AuthenticationComponent {
 
-  form: any
+  signupForm: any;
+  loginForm: any;
 
   constructor(
     private fb: FormBuilder,
@@ -22,42 +22,62 @@ export class AuthenticationComponent {
     private routes: Router
     ) {
 
-    this.form = fb.group({
+    this.signupForm = fb.group({
       email: new FormControl('', [
         Validators.required,
         Validators.minLength(5)
       ]),
 
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(4)
-      ]),
+      // password: new FormControl('', [
+      //   Validators.required,
+      //   Validators.minLength(4)
+      // ]),
 
       role: new FormControl('', [
         Validators.required
       ])
     })
+
+    this.loginForm = fb.group({
+      email: new FormControl('', [
+        Validators.required,
+        Validators.minLength(5)
+      ])
+    })
   }
 
-  get fc() {
-    return this.form.controls
+  get lfc() {
+    return this.loginForm.controls
+  }
+
+  get sfc() {
+    return this.signupForm.controls
+  }
+
+  async signup() {
+    const value = this.signupForm.value
+    if (!(value.email)) return;
+    const body = {
+      login: value.email,
+      userRole: value.role
+    }
+    await this.authService.signup(body).subscribe();
   }
 
   async login() {
-    const value = this.form.value
-    if (!(value.email || value.password)) return;
+    const value = this.loginForm.value
+    if (!(value.email)) return;
     const body = {
-      email: value.email,
-      role: value.role
+      login: value.email
     }
-    const isAuthorized = await this.authService.login(body).subscribe(_ => {
-      this.sendIdToMainComponent(_.id)
+    await this.authService.login(body).subscribe(id => {
+      this.sendIdToMainComponent(id)
+      this.routes.navigateByUrl('main')
     })
-    if (!isAuthorized) return;
-    this.routes.navigateByUrl('main')
   }
 
   sendIdToMainComponent(id: number) {
+    localStorage.setItem('id', String(id));
     this.transferService.sendData(id);
   }
 }

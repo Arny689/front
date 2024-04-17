@@ -26,10 +26,10 @@ export class SidepageComponent {
                     label: 'Главная страница',
                     routerLink: 'main',
                 },
-                {
-                    label: 'Редактирование отчета',
-                    routerLink: 'post',
-                },
+                // {
+                //     label: 'Редактирование отчета',
+                //     routerLink: 'post',
+                // },
             ],
         }
     ];

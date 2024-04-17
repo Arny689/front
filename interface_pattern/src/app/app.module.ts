@@ -1,6 +1,6 @@
 import { NgDompurifySanitizer } from "@tinkoff/ng-dompurify";
 import { TuiRootModule, TuiDialogModule, TuiAlertModule, TUI_SANITIZER, TuiSvgModule, TuiButtonModule, TuiDataListModule, TuiHostedDropdownModule } from "@taiga-ui/core";
-import { TuiTextAreaModule, TuiInputPasswordModule, TuiInputModule, TuiTagModule, TuiArrowModule, TuiCheckboxModule } from '@taiga-ui/kit';
+import { TuiTextAreaModule, TuiInputPasswordModule, TuiInputModule, TuiTagModule, TuiArrowModule, TuiCheckboxModule, TuiInputFilesModule } from '@taiga-ui/kit';
 import { TuiTableModule } from '@taiga-ui/addon-table';
 import { TuiLetModule } from '@taiga-ui/cdk';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -20,6 +20,11 @@ import { PostsComponent } from './posts/posts.component';
 import { SearchPipe } from './pipes/search.pipe';
 import { SidepageComponent } from './sidepage/sidepage.component';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
+import { DialogComponent } from "./dialog/dialog.component";
+
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 @NgModule({
   declarations: [
@@ -29,7 +34,8 @@ import { MainLayoutComponent } from './layout/main-layout/main-layout.component'
     PostsComponent,
     SearchPipe,
     SidepageComponent,
-    MainLayoutComponent
+    MainLayoutComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +59,10 @@ import { MainLayoutComponent } from './layout/main-layout/main-layout.component'
       TuiArrowModule,
       TuiHostedDropdownModule,
       TuiCheckboxModule,
-      NgxPaginationModule
+      TuiInputFilesModule,
+      NgxPaginationModule,
+      MatTabsModule,
+      MatDialogModule
 ],
   providers: [
     { provide: TUI_SANITIZER, useClass: NgDompurifySanitizer },

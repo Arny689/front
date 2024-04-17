@@ -19,6 +19,7 @@
     "@angular/platform-browser": "^16.0.0",
     "@angular/platform-browser-dynamic": "^16.0.0",
     "@angular/router": "^16.0.0",
+    "@angular/material": "^16.0.0",
     "@taiga-ui/addon-editor": "^3.35.0",
     "@taiga-ui/addon-preview": "^3.35.0",
     "@taiga-ui/addon-table": "^3.35.0",
